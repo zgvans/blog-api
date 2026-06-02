@@ -1,0 +1,211 @@
+{
+	"info": {
+		"name": "Blog API",
+		"description": "博客后端 API - Flask + SQLAlchemy + JWT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "认证",
+			"item": [
+				{
+					"name": "注册",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"admin\", \"email\": \"admin@test.com\", \"password\": \"123456\"}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/auth/register",
+							"host": ["127.0.0.1"],
+							"port": "5000",
+							"path": ["api", "auth", "register"]
+						}
+					}
+				},
+				{
+					"name": "登录",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"admin\", \"password\": \"123456\"}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/auth/login",
+							"host": ["127.0.0.1"],
+							"port": "5000",
+							"path": ["api", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "获取用户信息",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/auth/me",
+							"host": ["127.0.0.1"],
+							"port": "5000",
+							"path": ["api", "auth", "me"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "文章",
+			"item": [
+				{
+					"name": "创建文章",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"我的第一篇文章\", \"content\": \"这是文章内容，可以写很长一段话。\"}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/articles",
+							"host": ["127.0.0.1"],
+							"port": "5000",
+							"path": ["api", "articles"]
+						}
+					}
+				},
+				{
+					"name": "文章列表",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/articles",
+							"host": ["127.0.0.1"],
+							"port": "5000",
+							"path": ["api", "articles"]
+						}
+					}
+				},
+				{
+					"name": "搜索文章",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/articles?search=Python&page=1&per_page=10",
+							"host": ["127.0.0.1"],
+							"port": "5000",
+							"path": ["api", "articles"],
+							"query": [
+								{ "key": "search", "value": "Python" },
+								{ "key": "page", "value": "1" },
+								{ "key": "per_page", "value": "10" }
+							]
+						}
+					}
+				},
+				{
+					"name": "文章详情",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/articles/1",
+							"host": ["127.0.0.1"],
+							"port": "5000",
+							"path": ["api", "articles", "1"]
+						}
+					}
+				},
+				{
+					"name": "更新文章",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"更新后的标题\", \"content\": \"更新后的内容\"}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/articles/1",
+							"host": ["127.0.0.1"],
+							"port": "5000",
+							"path": ["api", "articles", "1"]
+						}
+					}
+				},
+				{
+					"name": "删除文章",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/articles/1",
+							"host": ["127.0.0.1"],
+							"port": "5000",
+							"path": ["api", "articles", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "评论",
+			"item": [
+				{
+					"name": "发表评论",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"content\": \"写得不错！\"}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/articles/1/comments",
+							"host": ["127.0.0.1"],
+							"port": "5000",
+							"path": ["api", "articles", "1", "comments"]
+						}
+					}
+				},
+				{
+					"name": "查看评论",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/articles/1/comments",
+							"host": ["127.0.0.1"],
+							"port": "5000",
+							"path": ["api", "articles", "1", "comments"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "登录后把返回的token粘贴到这里"
+		}
+	]
+}
