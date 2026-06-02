@@ -14,15 +14,27 @@
 
 ## 快速启动
 
+### 方式一：直接用 Python
+
 ```bash
-# 1. 安装依赖
 pip install -r requirements.txt
-
-# 2. 启动服务
 python app.py
-
-# 3. 访问
 # 浏览器打开 http://127.0.0.1:5000
+```
+
+### 方式二：使用 Docker（推荐）
+
+```bash
+# 构建并启动（默认 SQLite）
+docker build -t blog-api .
+docker run -d -p 5000:5000 --name blog-api blog-api
+```
+
+### 方式三：Docker Compose（MySQL 生产模式）
+
+```bash
+docker-compose up -d
+# 等待 MySQL 就绪后，访问 http://127.0.0.1:5000
 ```
 
 ## API 接口
@@ -69,13 +81,16 @@ python app.py
 
 ```
 blog-api/
-├── app.py          # 应用入口
-├── config.py       # 配置
-├── models.py       # 数据模型（User / Article / Comment）
+├── app.py              # 应用入口
+├── wsgi.py             # gunicorn 生产入口
+├── config.py           # 配置
+├── models.py           # 数据模型（User / Article / Comment）
 ├── routes/
-│   ├── auth.py     # 认证接口
-│   ├── articles.py # 文章接口
-│   └── comments.py # 评论接口
+│   ├── auth.py         # 认证接口
+│   ├── articles.py     # 文章接口
+│   └── comments.py     # 评论接口
+├── Dockerfile          # Docker 构建
+├── docker-compose.yml  # Docker Compose（MySQL 模式）
 ├── requirements.txt
 └── README.md
 ```
